@@ -3,9 +3,9 @@ Contributors: ivorysearch, vinod dalvi
 Donate link: https://ivorysearch.com/pricing/
 Tags: search, woocommerce search, image search, ajax search, search shortcode, live search, inverted index-based search, exclude from search, search widget, search menu, search plugin, custom search, search by sku, search by post type, search by category, relevance search, search forms
 Requires at least: 3.9
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.2.4
-Stable tag: 5.5.4
+Stable tag: 5.5.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -197,6 +197,10 @@ Yes we do. We try our best to help free users with customisation requests and we
 
 == Changelog ==
 
+= 5.5.5 =
+* Fixed - Synonym word searching was case-sensitive
+* Updated - Freemius SDK 2.6.2
+
 = 5.5.4 =
 * Fixed - Error: Call to undefined function mysql_get_server_info 
 * Fixed - Passing args to wc_get_product is deprecated
@@ -218,24 +222,3 @@ Yes we do. We try our best to help free users with customisation requests and we
 * Updated - Freemius SDK
 * Moved - Custom CSS code from website footer to header.
 * Moved - Customizer CSS code from form tag to header.
-
-= 5.4.10 =
-* Fixed - Warning: array_merge(): Expected parameter 1 to be an array, string given in
-
-= 5.4.9 =
-* Fixed - Tags and Categories search was not working in inverted index search engine.
-
-= 5.4.8 =
-* Fixed - Using brackets in the search term was not getting searched.
-* Fixed - Using special characters in stopwords generate warnings.
-* Improved - Search/Exclude product variations by attributes/variations.
-* Updated - Freemius SDK
-
-= 5.4.7 =
-* Fixed - add_query_arg() and remove_query_arg() usage
-
-= 5.4.6 =
-* Fixed - TablePress not searching japanese words
-
-= 5.4.5 =
-* Fixed - Call to undefined function parse_blocks

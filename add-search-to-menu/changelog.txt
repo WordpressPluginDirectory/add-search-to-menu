@@ -1,3 +1,24 @@
+= 5.4.10 =
+* Fixed - Warning: array_merge(): Expected parameter 1 to be an array, string given in
+
+= 5.4.9 =
+* Fixed - Tags and Categories search was not working in inverted index search engine.
+
+= 5.4.8 =
+* Fixed - Using brackets in the search term was not getting searched.
+* Fixed - Using special characters in stopwords generate warnings.
+* Improved - Search/Exclude product variations by attributes/variations.
+* Updated - Freemius SDK
+
+= 5.4.7 =
+* Fixed - add_query_arg() and remove_query_arg() usage
+
+= 5.4.6 =
+* Fixed - TablePress not searching japanese words
+
+= 5.4.5 =
+* Fixed - Call to undefined function parse_blocks
+
 = 5.4.4 =
 * Updated - Freemius SDK
 * Fixed - Security fix

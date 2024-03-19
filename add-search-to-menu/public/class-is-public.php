@@ -578,9 +578,9 @@ class IS_Public
                                                     if ( !$query->is_paged() && !isset( $query->query_vars['_is_excludes']['ignore_sticky_posts'] ) ) {
                                                         add_filter(
                                                             'the_posts',
-                                                            function ( $posts ) {
+                                                            function ( $posts, $query ) {
                                                             
-                                                            if ( !empty($posts) ) {
+                                                            if ( $query->is_search() && !empty($posts) ) {
                                                                 $sticky_posts = array();
                                                                 foreach ( $posts as $key => $post ) {
                                                                     
@@ -679,10 +679,10 @@ class IS_Public
                 $parts = explode( '=', $pair );
                 $key = strval( trim( $parts[0] ) );
                 $value = trim( $parts[1] );
-                if ( in_array( $key, (array) $q['search_terms'] ) && !in_array( $value, (array) $q['search_terms'] ) ) {
+                if ( ivory_in_arrayi( $key, (array) $q['search_terms'] ) && !ivory_in_arrayi( $value, (array) $q['search_terms'] ) ) {
                     array_push( $q['search_terms'], $value );
                 }
-                if ( in_array( $value, (array) $q['search_terms'] ) && !in_array( $key, (array) $q['search_terms'] ) ) {
+                if ( ivory_in_arrayi( $value, (array) $q['search_terms'] ) && !ivory_in_arrayi( $key, (array) $q['search_terms'] ) ) {
                     array_push( $q['search_terms'], $key );
                 }
             }
@@ -1058,9 +1058,9 @@ class IS_Public
             
             if ( empty($wpdb->use_mysqli) ) {
                 //deprecated in php 7.0
-                $vesion_details = mysqli_get_client_info();
+                $vesion_details = mysql_get_server_info();
             } else {
-                $vesion_details = mysqli_get_client_info( $wpdb->dbh );
+                $vesion_details = mysqli_get_client_info();
             }
             
             //mariadb

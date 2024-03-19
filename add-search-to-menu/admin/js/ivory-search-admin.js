@@ -38,7 +38,9 @@
 					}
 				} );
 			} );
-
+			if( $( '#search-form-editor #is_search_in_header' ).is(':checked') ) {
+				$('#search-form-editor .site-uses-cache-wrapper').show();
+			}
 		} );
 
 			$( document ).ready( function() {
