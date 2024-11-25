@@ -3,17 +3,13 @@
 /**
  * Loads Freemius SDK
  */
-
 if ( !defined( 'ABSPATH' ) ) {
     exit;
     // Exits if accessed directly.
 }
-
 // Creates a helper function for easy Freemius SDK access.
-function is_fs()
-{
-    global  $is_fs ;
-    
+function is_fs() {
+    global $is_fs;
     if ( !isset( $is_fs ) ) {
         // Activate multisite network integration.
         if ( !defined( 'WP_FS__PRODUCT_2086_MULTISITE' ) ) {
@@ -32,15 +28,14 @@ function is_fs()
             'has_paid_plans'  => true,
             'has_affiliation' => 'selected',
             'menu'            => array(
-            'slug'        => 'ivory-search',
-            'first-path'  => 'plugins.php',
-            'support'     => false,
-            'affiliation' => false,
-        ),
+                'slug'        => 'ivory-search',
+                'first-path'  => 'plugins.php',
+                'support'     => false,
+                'affiliation' => false,
+            ),
             'is_live'         => true,
         ) );
     }
-    
     return $is_fs;
 }
 
@@ -60,17 +55,14 @@ is_fs()->add_filter( 'show_affiliate_program_notice', '__return_false' );
  * 
  * @since 5.0
  */
-function is_index_uninstall()
-{
-    global  $wpdb ;
+function is_index_uninstall() {
+    global $wpdb;
     $is_index_table = $wpdb->prefix . 'is_inverted_index';
     $sql = $wpdb->prepare( "SHOW TABLES LIKE %s;", $is_index_table );
-    
     if ( $wpdb->get_var( $sql ) === $is_index_table ) {
         $sql = "DROP TABLE {$is_index_table};";
         $wpdb->query( $sql );
     }
-
 }
 
 is_fs()->add_action( 'after_uninstall', 'is_index_uninstall' );

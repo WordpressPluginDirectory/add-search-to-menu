@@ -7,18 +7,20 @@
  *
  * @package IS
  */
-class IS_Settings_Fields
-{
+class IS_Settings_Fields {
     /**
      * Stores plugin options.
      */
-    public  $opt ;
+    public $opt;
+
     /**
      * Core singleton class
      * @var self
      */
-    private static  $_instance ;
-    private  $is_premium_plugin = false ;
+    private static $_instance;
+
+    private $is_premium_plugin = false;
+
     /**
      * Instantiates the plugin by setting up the core properties and loading
      * all necessary dependencies and defining the hooks.
@@ -27,42 +29,37 @@ class IS_Settings_Fields
      * plugin dependencies, and will leverage the Ivory_Search for
      * registering the hooks and the callback functions used throughout the plugin.
      */
-    public function __construct()
-    {
-        
-        if ( empty($this->opt) ) {
+    public function __construct() {
+        if ( empty( $this->opt ) ) {
             $is_menu_search = get_option( 'is_menu_search', array() );
             $is_settings = get_option( 'is_settings', array() );
             $this->opt = array_merge( (array) $is_settings, (array) $is_menu_search );
         }
-    
     }
-    
+
     /**
      * Gets the instance of this class.
      *
      * @return self
      */
-    public static function getInstance()
-    {
+    public static function getInstance() {
         if ( !self::$_instance instanceof self ) {
             self::$_instance = new self();
         }
         return self::$_instance;
     }
-    
+
     /**
      * Displays settings sections having custom markup.
      */
-    public function is_do_settings_sections( $page, $sec )
-    {
-        global  $wp_settings_sections, $wp_settings_fields ;
+    public function is_do_settings_sections( $page, $sec ) {
+        global $wp_settings_sections, $wp_settings_fields;
         if ( !isset( $wp_settings_sections[$page] ) ) {
             return;
         }
         $section = (array) $wp_settings_sections[$page][$sec];
         if ( $section['title'] ) {
-            echo  "<h2>{$section['title']}</h2>\n" ;
+            echo "<h2>{$section['title']}</h2>\n";
         }
         if ( $section['callback'] ) {
             call_user_func( $section['callback'], $section );
@@ -78,37 +75,33 @@ class IS_Settings_Fields
 		</div>
 		<?php 
     }
-    
+
     /**
      * Displays settings fields having custom markup.
      */
-    public function is_do_settings_fields( $page, $section )
-    {
-        global  $wp_settings_fields ;
+    public function is_do_settings_fields( $page, $section ) {
+        global $wp_settings_fields;
         if ( !isset( $wp_settings_fields[$page][$section] ) ) {
             return;
         }
         foreach ( (array) $wp_settings_fields[$page][$section] as $field ) {
             $class = '';
-            if ( !empty($field['args']['class']) ) {
+            if ( !empty( $field['args']['class'] ) ) {
                 $class = ' class="' . esc_attr( $field['args']['class'] ) . '"';
             }
-            
-            if ( !empty($field['args']['label_for']) ) {
+            if ( !empty( $field['args']['label_for'] ) ) {
                 ?>
 			<h3 scope="row"><label for="<?php 
                 esc_attr_e( $field['args']['label_for'] );
                 ?>"><?php 
-                echo  wp_kses_post( $field['title'] ) ;
+                echo wp_kses_post( $field['title'] );
                 ?></label>
 			<?php 
             } else {
                 ?> 
 			<h3 scope="row"><?php 
-                echo  wp_kses_post( $field['title'] ) ;
+                echo wp_kses_post( $field['title'] );
             }
-            
-            
             if ( 'Custom CSS' === $field['title'] || 'Advanced' === $field['title'] || 'ivory_search_index' == $section && 'Post Types' == $field['title'] ) {
                 ?>
                         <span class="is-actions"><a class="expand" href="#"><?php 
@@ -118,7 +111,6 @@ class IS_Settings_Fields
                 ?></a></span>
                     <?php 
             }
-            
             ?>
             </h3>
             <div>
@@ -129,27 +121,23 @@ class IS_Settings_Fields
 		    <?php 
         }
     }
-    
+
     /**
      * Registers plugin settings fields.
      */
-    function register_settings_fields()
-    {
-        
-        if ( !empty($GLOBALS['pagenow']) && 'options.php' === $GLOBALS['pagenow'] ) {
-            global  $wp_version ;
+    function register_settings_fields() {
+        if ( !empty( $GLOBALS['pagenow'] ) && 'options.php' === $GLOBALS['pagenow'] ) {
+            global $wp_version;
             $temp_oname = 'whitelist_options';
             if ( version_compare( $wp_version, '5.5', '>=' ) ) {
                 $temp_oname = 'allowed_options';
             }
-            
             if ( isset( $_POST['is_menu_search'] ) ) {
                 add_filter( $temp_oname, function ( $allowed_options ) {
                     $allowed_options['ivory_search'][0] = 'is_menu_search';
                     return $allowed_options;
                 } );
             } else {
-                
                 if ( isset( $_POST['is_analytics'] ) ) {
                     add_filter( $temp_oname, function ( $allowed_options ) {
                         $allowed_options['ivory_search'][0] = 'is_analytics';
@@ -163,11 +151,8 @@ class IS_Settings_Fields
                         } );
                     }
                 }
-            
             }
-        
         }
-        
         $tab = 'settings';
         if ( isset( $_GET['tab'] ) ) {
             switch ( $_GET['tab'] ) {
@@ -182,164 +167,154 @@ class IS_Settings_Fields
                     break;
             }
         }
-        
         if ( 'settings' === $tab ) {
             add_settings_section(
                 'ivory_search_settings',
                 '',
-                array( $this, 'settings_section_desc' ),
+                array($this, 'settings_section_desc'),
                 'ivory_search'
             );
             add_settings_field(
                 'ivory_search_css',
                 __( 'Custom CSS', 'add-search-to-menu' ),
-                array( $this, 'custom_css' ),
+                array($this, 'custom_css'),
                 'ivory_search',
                 'ivory_search_settings'
             );
             add_settings_field(
                 'ivory_search_stopwords',
                 __( 'Stopwords', 'add-search-to-menu' ),
-                array( $this, 'stopwords' ),
+                array($this, 'stopwords'),
                 'ivory_search',
                 'ivory_search_settings'
             );
             add_settings_field(
                 'ivory_search_synonyms',
                 __( 'Synonyms', 'add-search-to-menu' ),
-                array( $this, 'synonyms' ),
+                array($this, 'synonyms'),
                 'ivory_search',
                 'ivory_search_settings'
             );
             add_settings_field(
                 'ivory_search_header',
                 __( 'Header Search', 'add-search-to-menu' ),
-                array( $this, 'header' ),
+                array($this, 'header'),
                 'ivory_search',
                 'ivory_search_settings'
             );
             add_settings_field(
                 'ivory_search_footer',
                 __( 'Footer Search', 'add-search-to-menu' ),
-                array( $this, 'footer' ),
+                array($this, 'footer'),
                 'ivory_search',
                 'ivory_search_settings'
             );
             add_settings_field(
                 'ivory_search_display_in_header',
                 __( 'Mobile Search', 'add-search-to-menu' ),
-                array( $this, 'menu_search_in_header' ),
+                array($this, 'menu_search_in_header'),
                 'ivory_search',
                 'ivory_search_settings'
             );
             add_settings_field(
                 'not_load_files',
                 __( 'Plugin Files', 'add-search-to-menu' ),
-                array( $this, 'plugin_files' ),
+                array($this, 'plugin_files'),
                 'ivory_search',
                 'ivory_search_settings'
             );
             add_settings_field(
                 'ivory_search_extras',
                 __( 'Advanced', 'add-search-to-menu' ),
-                array( $this, 'advanced' ),
+                array($this, 'advanced'),
                 'ivory_search',
                 'ivory_search_settings'
             );
-            register_setting( 'ivory_search', 'is_settings', array( $this, 'is_validate_setting' ) );
+            register_setting( 'ivory_search', 'is_settings', array($this, 'is_validate_setting') );
         } else {
-            
             if ( 'menu-search' === $tab ) {
                 add_settings_section(
                     'ivory_search_section',
                     '',
-                    array( $this, 'menu_search_section_desc' ),
+                    array($this, 'menu_search_section_desc'),
                     'ivory_search'
                 );
                 add_settings_field(
                     'ivory_search_locations',
                     __( 'Menu Search Settings', 'add-search-to-menu' ),
-                    array( $this, 'menu_settings' ),
+                    array($this, 'menu_settings'),
                     'ivory_search',
                     'ivory_search_section'
                 );
                 register_setting( 'ivory_search', 'is_menu_search' );
             } else {
-                
                 if ( 'analytics' === $tab ) {
                     add_settings_section(
                         'ivory_search_analytics',
                         '',
-                        array( $this, 'analytics_section_desc' ),
+                        array($this, 'analytics_section_desc'),
                         'ivory_search'
                     );
                     add_settings_field(
                         'ivory_search_analytics_fields',
                         __( 'Search Analytics', 'add-search-to-menu' ),
-                        array( $this, 'analytics' ),
+                        array($this, 'analytics'),
                         'ivory_search',
                         'ivory_search_analytics'
                     );
                     register_setting( 'ivory_search', 'is_analytics' );
                 } else {
-                    
                     if ( 'index' === $tab ) {
                         $index = IS_Settings_Index_Fields::getInstance();
                         add_settings_section(
                             'ivory_search_index',
                             '',
-                            array( $index, 'index_section_desc' ),
+                            array($index, 'index_section_desc'),
                             'ivory_search'
                         );
                         add_settings_field(
                             'ivory_search_index_post_types',
                             __( 'Post Types', 'add-search-to-menu' ),
-                            array( $index, 'post_types_settings' ),
+                            array($index, 'post_types_settings'),
                             'ivory_search',
                             'ivory_search_index'
                         );
                         add_settings_field(
                             'ivory_search_index_taxonomies',
                             __( 'Taxonomies', 'add-search-to-menu' ),
-                            array( $index, 'taxonomies_settings' ),
+                            array($index, 'taxonomies_settings'),
                             'ivory_search',
                             'ivory_search_index'
                         );
                         add_settings_field(
                             'ivory_search_index_meta_fields',
                             __( 'Custom Fields', 'add-search-to-menu' ),
-                            array( $index, 'meta_fields_settings' ),
+                            array($index, 'meta_fields_settings'),
                             'ivory_search',
                             'ivory_search_index'
                         );
                         add_settings_field(
                             'ivory_search_index_extra_fields',
                             __( 'Extras', 'add-search-to-menu' ),
-                            array( $index, 'extra_settings' ),
+                            array($index, 'extra_settings'),
                             'ivory_search',
                             'ivory_search_index'
                         );
                         add_settings_field(
                             'ivory_search_index_advanced_fields',
                             __( 'Advanced', 'add-search-to-menu' ),
-                            array( $index, 'advanced_settings' ),
+                            array($index, 'advanced_settings'),
                             'ivory_search',
                             'ivory_search_index'
                         );
                         register_setting( 'ivory_search', 'is_index' );
                     }
-                
                 }
-            
             }
-        
         }
-    
     }
-    
-    function is_validate_setting( $args )
-    {
-        
+
+    function is_validate_setting( $args ) {
         if ( isset( $args['custom_css'] ) && preg_match( '#</?\\w+#', $args['custom_css'] ) ) {
             add_settings_error(
                 'is_settings',
@@ -349,8 +324,6 @@ class IS_Settings_Fields
             );
             $args['custom_css'] = $this->opt['custom_css'];
         }
-        
-        
         if ( isset( $args['custom_css'] ) && preg_match( '#</?\\w+#', $args['stopwords'] ) ) {
             add_settings_error(
                 'is_settings',
@@ -360,8 +333,6 @@ class IS_Settings_Fields
             );
             $args['stopwords'] = $this->opt['stopwords'];
         }
-        
-        
         if ( isset( $args['custom_css'] ) && preg_match( '#</?\\w+#', $args['synonyms'] ) ) {
             add_settings_error(
                 'is_settings',
@@ -371,15 +342,13 @@ class IS_Settings_Fields
             );
             $args['synonyms'] = $this->opt['synonyms'];
         }
-        
         return $args;
     }
-    
+
     /**
      * Displays Search To Menu section description text.
      */
-    function menu_search_section_desc()
-    {
+    function menu_search_section_desc() {
         ?>
 		<h4 class="panel-desc">
 			<?php 
@@ -388,12 +357,11 @@ class IS_Settings_Fields
 		</h4>
 		<?php 
     }
-    
+
     /**
      * Displays Analytics section description text.
      */
-    function analytics_section_desc()
-    {
+    function analytics_section_desc() {
         ?>
 		<h4 class="panel-desc">
 			<?php 
@@ -402,12 +370,11 @@ class IS_Settings_Fields
 		</h4>
 		<?php 
     }
-    
+
     /**
      * Displays Settings section description text.
      */
-    function settings_section_desc()
-    {
+    function settings_section_desc() {
         ?>
 		<h4 class="panel-desc">
 			<?php 
@@ -416,12 +383,11 @@ class IS_Settings_Fields
 		</h4>
 		<?php 
     }
-    
+
     /**
      * Displays menu settings fields.
      */
-    function menu_settings()
-    {
+    function menu_settings() {
         /**
          * Displays choose menu locations field.
          */
@@ -431,11 +397,9 @@ class IS_Settings_Fields
         ?>
 		<div>
 		<?php 
-        
-        if ( !empty($menus) ) {
+        if ( !empty( $menus ) ) {
             $check_value = '';
             foreach ( $menus as $location => $description ) {
-                
                 if ( has_nav_menu( $location ) ) {
                     $check_value = ( isset( $this->opt['menus'][$location] ) ? $this->opt['menus'][$location] : 0 );
                     ?>
@@ -455,7 +419,6 @@ class IS_Settings_Fields
                     ?> </label></p>
                 <?php 
                 }
-            
             }
             if ( '' === $check_value ) {
                 printf( __( 'No menu assigned to navigation menu location in the %sMenus screen%s.', 'add-search-to-menu' ), '<a target="_blank" href="' . admin_url( 'nav-menus.php' ) . '">', '</a>' );
@@ -463,7 +426,6 @@ class IS_Settings_Fields
         } else {
             _e( 'Navigation menu location is not registered on the site.', 'add-search-to-menu' );
         }
-        
         ?>
 		</div><br />
   		 <?php 
@@ -476,8 +438,7 @@ class IS_Settings_Fields
         ?>
 		<div>
 		<?php 
-        
-        if ( !empty($menu_name) ) {
+        if ( !empty( $menu_name ) ) {
             $check_value = '';
             foreach ( $menu_name as $value ) {
                 $check_value = ( isset( $this->opt['menu_name'][$value->slug] ) ? $this->opt['menu_name'][$value->slug] : 0 );
@@ -502,7 +463,6 @@ class IS_Settings_Fields
         } else {
             printf( __( 'No menu created in the %sMenus screen%s.', 'add-search-to-menu' ), '<a target="_blank" href="' . admin_url( 'nav-menus.php' ) . '">', '</a>' );
         }
-        
         ?>
 		</div>
   		 <?php 
@@ -539,12 +499,10 @@ class IS_Settings_Fields
             'popup'           => __( 'Popup', 'add-search-to-menu' ),
         );
         $menu_close_icon = false;
-        
-        if ( empty($this->opt) || !isset( $this->opt['menu_style'] ) ) {
+        if ( empty( $this->opt ) || !isset( $this->opt['menu_style'] ) ) {
             $this->opt['menu_style'] = 'dropdown';
             $menu_close_icon = true;
         }
-        
         $check_value = ( isset( $this->opt['menu_style'] ) ? $this->opt['menu_style'] : 'dropdown' );
         ?>
 		<div class="search-form-style">
@@ -627,8 +585,7 @@ class IS_Settings_Fields
         ?>
 		<div>
 		<?php 
-        
-        if ( !empty($posts) ) {
+        if ( !empty( $posts ) ) {
             $check_value = ( isset( $this->opt['menu_search_form'] ) ? $this->opt['menu_search_form'] : 0 );
             ?>
 			<select class="ivory_search_form" id="menu_search_form" name="is_menu_search[menu_search_form]" >
@@ -650,11 +607,10 @@ class IS_Settings_Fields
             ?>
 			</select>
 			<?php 
-            
             if ( $check_value ) {
                 ?>
 				<a href="<?php 
-                echo  esc_url( menu_page_url( 'ivory-search', false ) . '&post=' . absint( $check_value ) . '&action=edit' ) ;
+                echo esc_url( menu_page_url( 'ivory-search', false ) . '&post=' . absint( $check_value ) . '&action=edit' );
                 ?>">  <?php 
                 esc_html_e( 'Edit Search Form', 'add-search-to-menu' );
                 ?></a>
@@ -662,15 +618,13 @@ class IS_Settings_Fields
             } else {
                 ?>
 				<a href="<?php 
-                echo  esc_url( menu_page_url( 'ivory-search-new', false ) ) ;
+                echo esc_url( menu_page_url( 'ivory-search-new', false ) );
                 ?>">  <?php 
                 esc_html_e( "Create New", 'add-search-to-menu' );
                 ?></a>
 			<?php 
             }
-        
         }
-        
         ?>
 		</div><br /><br />
 		<?php 
@@ -704,12 +658,11 @@ class IS_Settings_Fields
 		</div></div>
 		<?php 
     }
-    
+
     /**
      * Displays search analytics fields.
      */
-    function analytics()
-    {
+    function analytics() {
         $is_analytics = get_option( 'is_analytics', array() );
         $check_value = ( isset( $is_analytics['disable_analytics'] ) ? $is_analytics['disable_analytics'] : 0 );
         ?>
@@ -726,18 +679,18 @@ class IS_Settings_Fields
         _e( 'Disabled', 'add-search-to-menu' );
         ?></option>
 		</select> <?php 
-        esc_html_e( 'Google Analytics tracking for searches', 'add-search-to-menu' );
+        esc_html_e( 'Google Analytics 4 tracking for searches', 'add-search-to-menu' );
         ?></label>
 		<div class="analytics-info" <?php 
-        echo  ( $check_value ? 'style="display:none;"' : '' ) ;
+        echo ( $check_value ? 'style="display:none;"' : '' );
         ?> ><br/><br/><p><?php 
-        _e( 'Search Analytics uses Google Analytics to track searches.', 'add-search-to-menu' );
+        _e( 'Search Analytics uses Google Analytics 4 to track searches.', 'add-search-to-menu' );
         ?></p>
 		<p><?php 
-        printf( __( "You need %s Google Analytics %s to be installed on your site.", 'add-search-to-menu' ), "<a target='_blank' href='https://developers.google.com/analytics/devguides/collection/analyticsjs/'>", '</a>' );
+        printf( __( "You need %s Google Analytics 4 %s to be installed on your site.", 'add-search-to-menu' ), "<a target='_blank' href='https://support.google.com/tagmanager/topic/9578449'>", '</a>' );
         ?></p>
 		<p><?php 
-        _e( 'Data will be visible inside Google Analytics \'Events\' and \'Site Search\' report.', 'add-search-to-menu' );
+        _e( 'Data will be visible inside Google Analytics 4 \'Events\' and \'Site Search\' report.', 'add-search-to-menu' );
         ?></p>
 		<br/><p><?php 
         _e( 'Events will be as below:', 'add-search-to-menu' );
@@ -766,13 +719,12 @@ class IS_Settings_Fields
 		</div></div>
 		<?php 
     }
-    
+
     /**
      * Displays search form in site header.
      */
-    function header()
-    {
-        echo  __( 'Select search form to display in site header( Not Menu ).', 'add-search-to-menu' ) . '<br /><br />' ;
+    function header() {
+        echo __( 'Select search form to display in site header( Not Menu ).', 'add-search-to-menu' ) . '<br /><br />';
         $args = array(
             'numberposts' => -1,
             'post_type'   => 'is_search_form',
@@ -781,8 +733,7 @@ class IS_Settings_Fields
         ?>
 		<div>
 		<?php 
-        
-        if ( !empty($posts) ) {
+        if ( !empty( $posts ) ) {
             $check_value = ( isset( $this->opt['header_search'] ) ? $this->opt['header_search'] : 0 );
             ?>
 			<select class="ivory_search_header" id="is_header_search" name="is_settings[header_search]" >
@@ -806,11 +757,10 @@ class IS_Settings_Fields
             ?>
 			</select>
 			<?php 
-            
             if ( $check_value && get_post_type( $check_value ) ) {
                 ?>
 				<a href="<?php 
-                echo  esc_url( menu_page_url( 'ivory-search', false ) . '&post=' . absint( $check_value ) . '&action=edit' ) ;
+                echo esc_url( menu_page_url( 'ivory-search', false ) . '&post=' . absint( $check_value ) . '&action=edit' );
                 ?>"><?php 
                 esc_html_e( "Edit", 'add-search-to-menu' );
                 ?></a>
@@ -818,27 +768,24 @@ class IS_Settings_Fields
             } else {
                 ?>
 				<a href="<?php 
-                echo  esc_url( menu_page_url( 'ivory-search-new', false ) ) ;
+                echo esc_url( menu_page_url( 'ivory-search-new', false ) );
                 ?>"><?php 
                 esc_html_e( "Create New", 'add-search-to-menu' );
                 ?></a>
 			<?php 
             }
-        
         }
-        
         ?>
 		<br/><br/><span class="is-help"><span class="is-info-warning"><?php 
         _e( 'Please note that the above option displays search form in site header and not in navigation menu.', 'add-search-to-menu' );
         ?></span></span></div>
 	<?php 
     }
-    
+
     /**
      * Displays search form in site footer.
      */
-    function footer()
-    {
+    function footer() {
         _e( 'Select search form to display in site footer.', 'add-search-to-menu' );
         ?>
 		<br /><br />
@@ -849,8 +796,7 @@ class IS_Settings_Fields
             'post_type'   => 'is_search_form',
         );
         $posts = get_posts( $args );
-        
-        if ( !empty($posts) ) {
+        if ( !empty( $posts ) ) {
             $check_value = ( isset( $this->opt['footer_search'] ) ? $this->opt['footer_search'] : 0 );
             ?>
 			<select class="ivory_search_footer" id="is_footer_search" name="is_settings[footer_search]" >
@@ -874,11 +820,10 @@ class IS_Settings_Fields
             ?>
 			</select>
 			<?php 
-            
             if ( $check_value && get_post_type( $check_value ) ) {
                 ?>
 				<a href="<?php 
-                echo  esc_url( menu_page_url( 'ivory-search', false ) . '&post=' . absint( $check_value ) . '&action=edit' ) ;
+                echo esc_url( menu_page_url( 'ivory-search', false ) . '&post=' . absint( $check_value ) . '&action=edit' );
                 ?>"> <?php 
                 esc_html_e( "Edit", 'add-search-to-menu' );
                 ?></a>
@@ -886,25 +831,22 @@ class IS_Settings_Fields
             } else {
                 ?>
 				<a href="<?php 
-                echo  esc_url( menu_page_url( 'ivory-search-new', false ) ) ;
+                echo esc_url( menu_page_url( 'ivory-search-new', false ) );
                 ?>">  <?php 
                 esc_html_e( "Create New", 'add-search-to-menu' );
                 ?></a>
 			<?php 
             }
-        
         }
-        
         ?>
 		</div>
 		<?php 
     }
-    
+
     /**
      * Displays display in header field.
      */
-    function menu_search_in_header()
-    {
+    function menu_search_in_header() {
         $check_value = ( isset( $this->opt['header_menu_search'] ) ? $this->opt['header_menu_search'] : 0 );
         $check_string = checked( 'header_menu_search', $check_value, false );
         ?>
@@ -935,12 +877,11 @@ class IS_Settings_Fields
 		</span>
 		<?php 
     }
-    
+
     /**
      * Displays custom css field.
      */
-    function custom_css()
-    {
+    function custom_css() {
         _e( 'Add custom CSS code.', 'add-search-to-menu' );
         $this->opt['custom_css'] = ( isset( $this->opt['custom_css'] ) ? $this->opt['custom_css'] : '' );
         ?>
@@ -952,13 +893,12 @@ class IS_Settings_Fields
 		</div>
 		<?php 
     }
-    
+
     /**
      * Displays stopwords field.
      */
-    function stopwords()
-    {
-        echo  __( 'Add Stopwords that will not be searched.', 'add-search-to-menu' ) ;
+    function stopwords() {
+        echo __( 'Add Stopwords that will not be searched.', 'add-search-to-menu' );
         $this->opt['stopwords'] = ( isset( $this->opt['stopwords'] ) ? $this->opt['stopwords'] : '' );
         ?>
 		<br /><br />
@@ -972,12 +912,11 @@ class IS_Settings_Fields
 		</div>
 		<?php 
     }
-    
+
     /**
      * Displays synonyms field.
      */
-    function synonyms()
-    {
+    function synonyms() {
         _e( 'Add synonyms to make the searches find better results.', 'add-search-to-menu' );
         ?>
 		<br /><br />
@@ -1002,12 +941,11 @@ class IS_Settings_Fields
         ?></span></span>
 		<?php 
     }
-    
+
     /**
      * Displays do not load plugin files field.
      */
-    function plugin_files()
-    {
+    function plugin_files() {
         $content = __( 'Enable below options to disable loading of plugin CSS and JavaScript files.', 'add-search-to-menu' );
         IS_Help::help_info( $content );
         $styles = array(
@@ -1040,7 +978,6 @@ class IS_Settings_Fields
             ?></label>
             <span class="not-load-wrapper">
 			<?php 
-            
             if ( 'css' === $key ) {
                 ?>
 				<br /><label for="not_load_files[<?php 
@@ -1049,14 +986,14 @@ class IS_Settings_Fields
                 esc_html_e( 'If checked, you have to add following plugin file code into your child theme CSS file.', 'add-search-to-menu' );
                 ?></label>
 				<br /><a style="font-size: 13px;" target="_blank" href="<?php 
-                echo  plugins_url( '/public/css/ivory-search.css', IS_PLUGIN_FILE ) ;
+                echo plugins_url( '/public/css/ivory-search.css', IS_PLUGIN_FILE );
                 ?>"><?php 
-                echo  plugins_url( '/public/css/ivory-search.css', IS_PLUGIN_FILE ) ;
+                echo plugins_url( '/public/css/ivory-search.css', IS_PLUGIN_FILE );
                 ?></a>
 				<br /><a style="font-size: 13px;" target="_blank" href="<?php 
-                echo  plugins_url( '/public/css/ivory-ajax-search.css', IS_PLUGIN_FILE ) ;
+                echo plugins_url( '/public/css/ivory-ajax-search.css', IS_PLUGIN_FILE );
                 ?>"><?php 
-                echo  plugins_url( '/public/css/ivory-ajax-search.css', IS_PLUGIN_FILE ) ;
+                echo plugins_url( '/public/css/ivory-ajax-search.css', IS_PLUGIN_FILE );
                 ?></a>
 				<br />
 			<?php 
@@ -1068,23 +1005,22 @@ class IS_Settings_Fields
                 esc_html_e( "If checked, you have to add following plugin files code into your child theme JavaScript file.", 'add-search-to-menu' );
                 ?></label>
 				<br /><a style="font-size: 13px;" target="_blank" href="<?php 
-                echo  plugins_url( '/public/js/ivory-search.js', IS_PLUGIN_FILE ) ;
+                echo plugins_url( '/public/js/ivory-search.js', IS_PLUGIN_FILE );
                 ?>"><?php 
-                echo  plugins_url( '/public/js/ivory-search.js', IS_PLUGIN_FILE ) ;
+                echo plugins_url( '/public/js/ivory-search.js', IS_PLUGIN_FILE );
                 ?></a>
 				<br /><a style="font-size: 13px;" target="_blank" href="<?php 
-                echo  plugins_url( '/public/js/is-highlight.js', IS_PLUGIN_FILE ) ;
+                echo plugins_url( '/public/js/is-highlight.js', IS_PLUGIN_FILE );
                 ?>"><?php 
-                echo  plugins_url( '/public/js/is-highlight.js', IS_PLUGIN_FILE ) ;
+                echo plugins_url( '/public/js/is-highlight.js', IS_PLUGIN_FILE );
                 ?></a>
                 <br /><a style="font-size: 13px;" target="_blank" href="<?php 
-                echo  plugins_url( '/public/js/ivory-ajax-search.js', IS_PLUGIN_FILE ) ;
+                echo plugins_url( '/public/js/ivory-ajax-search.js', IS_PLUGIN_FILE );
                 ?>"><?php 
-                echo  plugins_url( '/public/js/ivory-ajax-search.js', IS_PLUGIN_FILE ) ;
+                echo plugins_url( '/public/js/ivory-ajax-search.js', IS_PLUGIN_FILE );
                 ?></a>
 			<?php 
             }
-            
             ?>
                 </span>
 		<?php 
@@ -1093,9 +1029,8 @@ class IS_Settings_Fields
 		</div>
 		<?php 
     }
-    
-    function advanced()
-    {
+
+    function advanced() {
         /**
          * Controls default search functionality.
          */

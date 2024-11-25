@@ -400,6 +400,10 @@ class IS_Index_Manager extends IS_Base_Options {
 	 */
 	public function ajax_create_index() {
 
+		if ( ! current_user_can( 'manage_options' ) ) {
+			_e( "Error: You don't have permission to create index. ", "add-search-to-menu" );
+			wp_die();
+		}
 		$page = ! empty( $_POST['page'] ) ? intval( $_POST['page'] ) : 1;
 		$total   = 0;
 		$results = '';

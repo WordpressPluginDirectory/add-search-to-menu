@@ -7,36 +7,39 @@
  * @subpackage IS/admin
  * @since 5.0
  */
-class IS_Settings_Index_Fields
-{
+class IS_Settings_Index_Fields {
     /**
      * Stores plugin index options.
      *
      * @since 5.0
      * @var IS_Index_Option
      */
-    protected  $index_opt ;
+    protected $index_opt;
+
     /**
      * Index Manager.
      *
      * @since 5.0
      * @var IS_Index_Manager
      */
-    protected  $index_manager ;
+    protected $index_manager;
+
     /**
      * Core singleton class.
      *
      * @var self
      * @since 5.0
      */
-    private static  $_instance ;
+    private static $_instance;
+
     /**
      * Premium plugin flag.
      *
      * @since 5.0
      * @var IS_Index_Option
      */
-    private  $is_premium_plugin = false ;
+    private $is_premium_plugin = false;
+
     /**
      * Instantiates the plugin by setting up the core properties and loading
      * all necessary dependencies and defining the hooks.
@@ -47,33 +50,30 @@ class IS_Settings_Index_Fields
      *
      * @since 5.0
      */
-    private function __construct()
-    {
+    private function __construct() {
         $this->index_opt = IS_Index_Options::getInstance();
         $this->index_manager = IS_Index_Manager::getInstance();
     }
-    
+
     /**
      * Gets the instance of this class.
      *
      * @since 5.0
      * @return self
      */
-    public static function getInstance()
-    {
+    public static function getInstance() {
         if ( !self::$_instance instanceof self ) {
             self::$_instance = new self();
         }
         return self::$_instance;
     }
-    
+
     /**
      * Displays index section description text.
      *
      * @since 5.0
      */
-    public function index_section_desc()
-    {
+    public function index_section_desc() {
         ?>
 		<h4 class="panel-desc">
 			<?php 
@@ -83,20 +83,19 @@ class IS_Settings_Index_Fields
 		<?php 
         $this->build_settings();
     }
-    
+
     /**
      * Build index settings panel.
      *
      * @since 5.0
      */
-    public function build_settings()
-    {
+    public function build_settings() {
         $id = IS_Index_Options::$ID;
         $option = 'auto_index_enabled';
         $saved_opt = $this->index_opt->{$option};
         $opt_id = "{$id}_{$option}";
         $opt_name = "{$id}[{$option}]";
-        $checked = !empty($saved_opt);
+        $checked = !empty( $saved_opt );
         $label = __( 'Automatically index content, when posts or comments are created (or updated).', 'add-search-to-menu' );
         ?>
 			<div id="post-body-content-0" style="position: relative;">
@@ -125,7 +124,7 @@ class IS_Settings_Index_Fields
 							/>
 							<span class="toggle-check-text"></span>
 							<?php 
-        echo  wp_kses_post( $label ) ;
+        echo wp_kses_post( $label );
         ?>
 						</label>
 					</p>
@@ -142,14 +141,13 @@ class IS_Settings_Index_Fields
 			</h4>
 		<?php 
     }
-    
+
     /**
      * Build index panel.
      *
      * @since 5.0
      */
-    protected function build_index_panel()
-    {
+    protected function build_index_panel() {
         $status = $this->index_manager->get_index_status();
         $create_data = $this->index_manager->get_ajax_create_index_data();
         $btn_label = $create_data['btn_labels'][$create_data['idx_status']];
@@ -203,7 +201,7 @@ class IS_Settings_Index_Fields
 						class="is_index_status"
 						readonly
 					><?php 
-        echo  esc_html( $status ) ;
+        echo esc_html( $status );
         ?></textarea>
 				</p>
 				<div>
@@ -217,7 +215,7 @@ class IS_Settings_Index_Fields
 			</div>
 		<?php 
     }
-    
+
     /**
      * Index Debug panel.
      * Index individual post.
@@ -226,8 +224,7 @@ class IS_Settings_Index_Fields
      *
      * @since 5.0
      */
-    public function index_debug_panel()
-    {
+    public function index_debug_panel() {
         if ( !IS_Debug::is_debug_mode() ) {
             return;
         }
@@ -254,14 +251,13 @@ class IS_Settings_Index_Fields
 			/>
 		<?php 
     }
-    
+
     /**
      * Show Post Types to Index panel.
      *
      * @since 5.0
      */
-    public function post_types_settings()
-    {
+    public function post_types_settings() {
         $id = IS_Index_Options::$ID;
         $option = 'post_types';
         $post_types = get_post_types( array(
@@ -273,14 +269,12 @@ class IS_Settings_Index_Fields
 			<?php 
         $content = __( 'Index selected post types.', 'add-search-to-menu' );
         IS_Help::help_info( esc_html( $content ) );
-        
-        if ( !empty($post_types) ) {
+        if ( !empty( $post_types ) ) {
             ?>
 			<div class="is-cb-dropdown">
 				<div class="is-cb-title">
 					<?php 
-            
-            if ( empty($saved_opt) ) {
+            if ( empty( $saved_opt ) ) {
                 ?>
 						<span class="is-cb-select"> 
 							<?php 
@@ -301,19 +295,17 @@ class IS_Settings_Index_Fields
                 foreach ( $saved_opt as $post_type ) {
                     ?>
 							<?php 
-                    
                     if ( isset( $post_types[$post_type] ) ) {
                         ?>
 								<span title="<?php 
                         esc_attr_e( $post_type );
                         ?>"> 
 									<?php 
-                        echo  esc_html( $post_types[$post_type]->labels->name ) ;
+                        echo esc_html( $post_types[$post_type]->labels->name );
                         ?> 
 								</span>
 							<?php 
                     }
-                    
                     ?>
 						<?php 
                 }
@@ -321,7 +313,6 @@ class IS_Settings_Index_Fields
 						</span>
 					<?php 
             }
-            
             ?>
 				</div>
 				<div class="is-cb-multisel">
@@ -354,7 +345,7 @@ class IS_Settings_Index_Fields
 						/>
 						<span class="toggle-check-text"></span>
 						<?php 
-                echo  wp_kses_post( $label ) ;
+                echo wp_kses_post( $label );
                 ?> 
 					</label>
 				<?php 
@@ -372,30 +363,27 @@ class IS_Settings_Index_Fields
 				</span>
 			<?php 
         }
-        
         ?>
 		</div>
 		<?php 
     }
-    
+
     /**
      * Show taxonomies settings panel.
      *
      * @since 5.0
      */
-    public function taxonomies_settings()
-    {
+    public function taxonomies_settings() {
         $this->taxonomies_options();
         $this->taxonomies_select();
     }
-    
+
     /**
      * Show taxonomies indexing options.
      *
      * @since 5.0
      */
-    protected function taxonomies_options()
-    {
+    protected function taxonomies_options() {
         $id = IS_Index_Options::$ID;
         $opt = 'tax_index_opt';
         $saved_opt = $this->index_opt->{$opt};
@@ -428,21 +416,20 @@ class IS_Settings_Index_Fields
 				/>
 				<span class="toggle-check-text"></span>
 				<?php 
-            echo  wp_kses_post( $label ) ;
+            echo wp_kses_post( $label );
             ?>
 			</label>
 		</p>
 			<?php 
         }
     }
-    
+
     /**
      * Show the taxonomies to select for indexing.
      *
      * @since 5.0
      */
-    protected function taxonomies_select()
-    {
+    protected function taxonomies_select() {
         $tax_objs = get_taxonomies( '', 'objects' );
         $id = IS_Index_Options::$ID;
         $option = 'tax_selected';
@@ -450,14 +437,12 @@ class IS_Settings_Index_Fields
         ?>
 		<div class="is-index-tax-select">
 			<?php 
-        
-        if ( !empty($tax_objs) ) {
+        if ( !empty( $tax_objs ) ) {
             ?>
 			<div class="is-cb-dropdown">
 				<div class="is-cb-title">
 					<?php 
-            
-            if ( empty($saved_opt) ) {
+            if ( empty( $saved_opt ) ) {
                 ?>
 						<span class="is-cb-select"> 
 							<?php 
@@ -478,19 +463,17 @@ class IS_Settings_Index_Fields
                 foreach ( $saved_opt as $tax ) {
                     ?>
 							<?php 
-                    
                     if ( isset( $tax_objs[$tax] ) ) {
                         ?>
 								<span title="<?php 
                         esc_attr_e( $tax );
                         ?>"> 
 									<?php 
-                        echo  esc_html( $tax_objs[$tax]->labels->name ) ;
+                        echo esc_html( $tax_objs[$tax]->labels->name );
                         ?> 
 								</span>
 							<?php 
                     }
-                    
                     ?>
 						<?php 
                 }
@@ -498,7 +481,6 @@ class IS_Settings_Index_Fields
 						</span>
 					<?php 
             }
-            
             ?>
 				</div>
 				<div class="is-cb-multisel">
@@ -531,7 +513,7 @@ class IS_Settings_Index_Fields
 						/>
 						<span class="toggle-check-text"></span>
 						<?php 
-                echo  wp_kses_post( $label ) ;
+                echo wp_kses_post( $label );
                 ?> 
 					</label>
 				<?php 
@@ -549,35 +531,30 @@ class IS_Settings_Index_Fields
 				</span>
 			<?php 
         }
-        
         ?>
 		</div>
 		<?php 
     }
-    
+
     /**
      * Show custom fields settings panel.
      *
      * @since 5.0
      */
-    public function meta_fields_settings()
-    {
+    public function meta_fields_settings() {
         $meta_keys = $this->index_opt->get_meta_keys( IS_Index_Options::META_OPT_ALL );
-        
-        if ( !empty($meta_keys) ) {
+        if ( !empty( $meta_keys ) ) {
             $this->meta_fields_options();
             $this->meta_fields_select();
         }
-    
     }
-    
+
     /**
      * Show meta fields indexing options.
      *
      * @since 5.0
      */
-    public function meta_fields_options()
-    {
+    public function meta_fields_options() {
         $id = IS_Index_Options::$ID;
         $meta_options = $this->index_opt->get_meta_fields_options();
         $option = 'meta_fields_opt';
@@ -616,7 +593,7 @@ class IS_Settings_Index_Fields
 						/>
 						<span class="toggle-check-text"></span>
 						<?php 
-            echo  esc_html( $title ) ;
+            echo esc_html( $title );
             ?>
 					</label>
 				</p>
@@ -625,14 +602,13 @@ class IS_Settings_Index_Fields
         ?>
 		<?php 
     }
-    
+
     /**
      * Show the meta fields to select for indexing.
      *
      * @since 5.0
      */
-    public function meta_fields_select()
-    {
+    public function meta_fields_select() {
         $id = IS_Index_Options::$ID;
         $option = 'meta_fields_selected';
         $saved_opt = $this->index_opt->{$option};
@@ -667,7 +643,7 @@ class IS_Settings_Index_Fields
             ?> 
 					>
 						<?php 
-            echo  esc_html( $meta_key ) ;
+            echo esc_html( $meta_key );
             ?>
 					</option>
 				<?php 
@@ -686,14 +662,13 @@ class IS_Settings_Index_Fields
 			</div>
 		<?php 
     }
-    
+
     /**
      * Show extra settings panel.
      *
      * @since 5.0
      */
-    public function extra_settings()
-    {
+    public function extra_settings() {
         $id = IS_Index_Options::$ID;
         $options = $this->index_opt->get_extra_options();
         $content = __( 'Index selected content.', 'add-search-to-menu' );
@@ -723,28 +698,26 @@ class IS_Settings_Index_Fields
 				/>
 				<span class="toggle-check-text"></span>
 				<?php 
-            echo  wp_kses_post( $label ) ;
+            echo wp_kses_post( $label );
             ?>
 			</label>
 		</p>
 			<?php 
         }
     }
-    
+
     /**
      * Show advanced indexing settings panel.
      *
      * @since 5.0
      */
-    public function advanced_settings()
-    {
+    public function advanced_settings() {
         $id = IS_Index_Options::$ID;
         $fields = $this->index_opt->get_advanced_options();
         ?>
 
 		<?php 
         foreach ( $fields as $field => $title ) {
-            
             if ( 'min_word_length' == $field ) {
                 ?>
 				<input 
@@ -763,15 +736,13 @@ class IS_Settings_Index_Fields
 					max="40"
 				>
 				<span class="word-min-len-text"><?php 
-                echo  esc_html( $title ) ;
+                echo esc_html( $title );
                 ?></span>
 				<br />
 				<br />
 				<?php 
                 continue;
             }
-            
-            
             if ( 'throttle_searches' == $field ) {
                 ?>
 				<div>
@@ -799,7 +770,7 @@ class IS_Settings_Index_Fields
 						/>
 						<span class="toggle-check-text"></span>
 						<?php 
-                echo  wp_kses_post( $title ) ;
+                echo wp_kses_post( $title );
                 ?>
 					</label>
 				</p>
@@ -812,7 +783,6 @@ class IS_Settings_Index_Fields
 				<?php 
                 continue;
             }
-            
             IS_Help::help_info( esc_html( $title ) );
             $punc_options = IS_Index_Options::get_punctuation_options( $field );
             foreach ( $punc_options as $option => $label ) {
@@ -841,7 +811,7 @@ class IS_Settings_Index_Fields
 						/>
 						<span class="toggle-check-text"></span>
 						<?php 
-                echo  wp_kses_post( $label ) ;
+                echo wp_kses_post( $label );
                 ?>
 					</label>
 				</p>

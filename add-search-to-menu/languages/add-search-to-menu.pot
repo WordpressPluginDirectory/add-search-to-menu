@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Ivory Search\n"
-"POT-Creation-Date: 2024-03-19 15:03+0530\n"
+"POT-Creation-Date: 2024-09-02 16:51+0530\n"
 "PO-Revision-Date: 2020-03-17 21:05+0530\n"
 "Last-Translator: \n"
 "Language-Team: Ivory Search <admin@ivorysearch.com>\n"
@@ -31,7 +31,7 @@ msgstr ""
 msgid "Click on the search form title to edit it."
 msgstr ""
 
-#: ../admin/class-is-admin.php:145 ../admin/class-is-admin.php:444
+#: ../admin/class-is-admin.php:145 ../admin/class-is-admin.php:448
 #: ../admin/class-is-help.php:64 ../admin/class-is-help.php:102
 #: ../includes/class-is-index-options.php:641
 msgid "Settings"
@@ -61,7 +61,7 @@ msgid ""
 "If you like %1$s please leave us a %2$s rating. A huge thanks in advance!"
 msgstr ""
 
-#: ../admin/class-is-admin.php:186 ../admin/class-is-admin.php:428
+#: ../admin/class-is-admin.php:186 ../admin/class-is-admin.php:432
 #: ../includes/class-is-admin-public.php:82 ../includes/class-is-widget.php:13
 msgid "Ivory Search"
 msgstr ""
@@ -96,121 +96,121 @@ msgstr ""
 msgid "No, thanks"
 msgstr ""
 
-#: ../admin/class-is-admin.php:276
+#: ../admin/class-is-admin.php:280
 msgid "No posts found"
 msgstr ""
 
-#: ../admin/class-is-admin.php:378
+#: ../admin/class-is-admin.php:382
 msgid "Search form created."
 msgstr ""
 
-#: ../admin/class-is-admin.php:380
+#: ../admin/class-is-admin.php:384
 msgid "Search form saved."
 msgstr ""
 
-#: ../admin/class-is-admin.php:382
+#: ../admin/class-is-admin.php:386
 msgid "Search form deleted."
 msgstr ""
 
-#: ../admin/class-is-admin.php:384
+#: ../admin/class-is-admin.php:388
 msgid "Search form reset."
 msgstr ""
 
-#: ../admin/class-is-admin.php:386
+#: ../admin/class-is-admin.php:390
 msgid "Index settings reset."
 msgstr ""
 
-#: ../admin/class-is-admin.php:395
+#: ../admin/class-is-admin.php:399
 msgid "There was an error saving the search form."
 msgstr ""
 
-#: ../admin/class-is-admin.php:403
+#: ../admin/class-is-admin.php:407
 msgid "Validation error occurred."
 msgstr ""
 
-#: ../admin/class-is-admin.php:404 ../admin/class-is-admin.php:412
+#: ../admin/class-is-admin.php:408 ../admin/class-is-admin.php:416
 #: ../admin/class-is-help.php:35 ../admin/class-is-help.php:90
 msgid "Includes"
 msgstr ""
 
-#: ../admin/class-is-admin.php:405 ../admin/class-is-admin.php:414
+#: ../admin/class-is-admin.php:409 ../admin/class-is-admin.php:418
 #: ../admin/class-is-help.php:40 ../admin/class-is-help.php:91
 msgid "Excludes"
 msgstr ""
 
-#: ../admin/class-is-admin.php:418
+#: ../admin/class-is-admin.php:422
 #, php-format
 msgid ""
 "Please make sure you have not selected similar %s fields in the search form "
 "%s and %s sections."
 msgstr ""
 
-#: ../admin/class-is-admin.php:430 ../admin/class-is-admin.php:477
+#: ../admin/class-is-admin.php:434 ../admin/class-is-admin.php:481
 #: ../includes/class-is-search-form.php:94
 msgid "Search Forms"
 msgstr ""
 
-#: ../admin/class-is-admin.php:435 ../admin/class-is-admin.php:437
-#: ../admin/class-is-admin.php:484 ../admin/partials/search-form.php:21
+#: ../admin/class-is-admin.php:439 ../admin/class-is-admin.php:441
+#: ../admin/class-is-admin.php:488 ../admin/partials/search-form.php:21
 #: ../admin/partials/search-form.php:31
 msgid "Add New Search Form"
 msgstr ""
 
-#: ../admin/class-is-admin.php:435 ../admin/class-is-admin.php:437
+#: ../admin/class-is-admin.php:439 ../admin/class-is-admin.php:441
 msgid "Add New"
 msgstr ""
 
-#: ../admin/class-is-admin.php:441 ../admin/class-is-help.php:59
+#: ../admin/class-is-admin.php:445 ../admin/class-is-help.php:59
 #: ../admin/class-is-help.php:101
 msgid "Menu Search"
 msgstr ""
 
-#: ../admin/class-is-admin.php:444 ../admin/partials/settings-form.php:20
+#: ../admin/class-is-admin.php:448 ../admin/partials/settings-form.php:20
 msgid "Ivory Search Settings"
 msgstr ""
 
-#: ../admin/class-is-admin.php:491
+#: ../admin/class-is-admin.php:495
 #, php-format
 msgid "Search results for &#8220;%s&#8221;"
 msgstr ""
 
-#: ../admin/class-is-admin.php:502
+#: ../admin/class-is-admin.php:506
 msgid "Find Search Forms"
 msgstr ""
 
-#: ../admin/class-is-admin.php:546
+#: ../admin/class-is-admin.php:550
 msgid "You are not allowed to edit this item."
 msgstr ""
 
-#: ../admin/class-is-admin.php:645
+#: ../admin/class-is-admin.php:649
 msgid "You are not allowed to reset this item."
 msgstr ""
 
-#: ../admin/class-is-admin.php:681
+#: ../admin/class-is-admin.php:685
 msgid "You are not allowed to copy this item."
 msgstr ""
 
-#: ../admin/class-is-admin.php:720
+#: ../admin/class-is-admin.php:724
 msgid "You are not allowed to delete this item."
 msgstr ""
 
-#: ../admin/class-is-admin.php:724
+#: ../admin/class-is-admin.php:728
 msgid "Error in deleting."
 msgstr ""
 
-#: ../admin/class-is-admin.php:955
+#: ../admin/class-is-admin.php:959
 msgid "Save Form"
 msgstr ""
 
-#: ../admin/class-is-admin.php:965
+#: ../admin/class-is-admin.php:969
 msgid "Upgrade to Pro to Access"
 msgstr ""
 
-#: ../admin/class-is-admin.php:972
+#: ../admin/class-is-admin.php:976
 msgid "Install Premium Version to Access"
 msgstr ""
 
-#: ../admin/class-is-admin.php:974
+#: ../admin/class-is-admin.php:978
 msgid "Upgrade to Pro Plus to Access"
 msgstr ""
 
@@ -1434,21 +1434,21 @@ msgid "Disabled"
 msgstr ""
 
 #: ../admin/class-is-settings-fields.php:462
-msgid "Google Analytics tracking for searches"
+msgid "Google Analytics 4 tracking for searches"
 msgstr ""
 
 #: ../admin/class-is-settings-fields.php:463
-msgid "Search Analytics uses Google Analytics to track searches."
+msgid "Search Analytics uses Google Analytics 4 to track searches."
 msgstr ""
 
 #: ../admin/class-is-settings-fields.php:464
 #, php-format
-msgid "You need %s Google Analytics %s to be installed on your site."
+msgid "You need %s Google Analytics 4 %s to be installed on your site."
 msgstr ""
 
 #: ../admin/class-is-settings-fields.php:465
 msgid ""
-"Data will be visible inside Google Analytics 'Events' and 'Site Search' "
+"Data will be visible inside Google Analytics 4 'Events' and 'Site Search' "
 "report."
 msgstr ""
 
@@ -1838,12 +1838,12 @@ msgid "index error(s)"
 msgstr ""
 
 #: ../includes/class-is-index-manager.php:358
-#: ../includes/class-is-index-manager.php:482
+#: ../includes/class-is-index-manager.php:486
 msgid "Creating Index..."
 msgstr ""
 
 #: ../includes/class-is-index-manager.php:360
-#: ../includes/class-is-index-manager.php:694
+#: ../includes/class-is-index-manager.php:698
 msgid "Create Index"
 msgstr ""
 
@@ -1863,55 +1863,59 @@ msgstr ""
 msgid "Recreate Index"
 msgstr ""
 
-#: ../includes/class-is-index-manager.php:468
+#: ../includes/class-is-index-manager.php:404
+msgid "Error: You don't have permission to create index. "
+msgstr ""
+
+#: ../includes/class-is-index-manager.php:472
 msgid "indexed"
 msgstr ""
 
-#: ../includes/class-is-index-manager.php:470
+#: ../includes/class-is-index-manager.php:474
 msgid "contents"
 msgstr ""
 
-#: ../includes/class-is-index-manager.php:474
+#: ../includes/class-is-index-manager.php:478
 msgid "terms"
 msgstr ""
 
-#: ../includes/class-is-index-manager.php:476
+#: ../includes/class-is-index-manager.php:480
 msgid "seconds"
 msgstr ""
 
-#: ../includes/class-is-index-manager.php:486
+#: ../includes/class-is-index-manager.php:490
 msgid "Finished Creating Index."
 msgstr ""
 
-#: ../includes/class-is-index-manager.php:497
+#: ../includes/class-is-index-manager.php:501
 msgid "Error: Index is already executing. Try again in a few minutes."
 msgstr ""
 
-#: ../includes/class-is-index-manager.php:499
+#: ../includes/class-is-index-manager.php:503
 msgid "Error: Index was not created"
 msgstr ""
 
-#: ../includes/class-is-index-manager.php:668
+#: ../includes/class-is-index-manager.php:672
 msgid "Deleting Index..."
 msgstr ""
 
-#: ../includes/class-is-index-manager.php:687
+#: ../includes/class-is-index-manager.php:691
 msgid "Index deleted"
 msgstr ""
 
-#: ../includes/class-is-index-manager.php:689
+#: ../includes/class-is-index-manager.php:693
 msgid "Error: Index was not deleted"
 msgstr ""
 
-#: ../includes/class-is-index-manager.php:736
+#: ../includes/class-is-index-manager.php:740
 msgid "Indexing content..."
 msgstr ""
 
-#: ../includes/class-is-index-manager.php:761
+#: ../includes/class-is-index-manager.php:765
 msgid "Content Indexed ID: "
 msgstr ""
 
-#: ../includes/class-is-index-manager.php:774
+#: ../includes/class-is-index-manager.php:778
 msgid "Error: content was not indexed"
 msgstr ""
 
@@ -2135,7 +2139,7 @@ msgstr ""
 msgid "Search Title Link"
 msgstr ""
 
-#: ../public/class-is-public.php:208
+#: ../public/class-is-public.php:208 ../public/class-is-public.php:258
 msgid "Search Icon Link"
 msgstr ""
 
